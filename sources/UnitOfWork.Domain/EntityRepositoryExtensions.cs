@@ -6,20 +6,20 @@ namespace UnitOfWork.Domain
 {
 	public static class EntityRepositoryExtensions
 	{
-		public static async Task<TEntity> DeleteAsync<TEntity, TId>([NotNull] this IEntityRepository<TEntity, TId> repository, TId id) where TEntity : class, IEntity<TId>
+		public static async Task<TEntity> DeleteAsync<TEntity, TId>([NotNull] this IEntityRepository<TEntity, TId> entityRepository, TId id) where TEntity : class, IEntity<TId>
 		{
-			if (repository == null)
+			if (entityRepository == null)
 			{
-				throw new ArgumentNullException("repository");
+				throw new ArgumentNullException("entityRepository");
 			}
 
-			var value = await repository.GetByIdAsync(id);
+			var value = await entityRepository.GetByIdAsync(id);
 			if (value == null)
 			{
 				return null;
 			}
 
-			repository.Delete(value);
+			entityRepository.Delete(value);
 			return value;
 		}
 	}

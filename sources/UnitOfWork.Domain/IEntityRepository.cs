@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 
 namespace UnitOfWork.Domain
 {
+	// TODO: IRepository instead
 	public interface IEntityRepository<TEntity, in TId> where TEntity : class, IEntity<TId>
 	{
 		Task<TEntity> GetByIdAsync(TId id);

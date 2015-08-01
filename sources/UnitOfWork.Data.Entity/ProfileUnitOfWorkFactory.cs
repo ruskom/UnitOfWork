@@ -6,7 +6,7 @@ namespace UnitOfWork.Data.Entity
 	{
 		public IProfileUnitOfWork Create()
 		{
-			return new ProfileUnitOfWork();
+			return new ProfileDbContextUnitOfWork();
 		}
 	}
 }

@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace UnitOfWork.Data.Entity
 {
-	public abstract class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext, new()
+	public abstract class DbContextUnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext, new()
 	{
 		protected TDbContext DbContext { get; set; }
 		private bool IsDisposed { get; set; }
 
-		protected UnitOfWork()
+		protected DbContextUnitOfWork()
 		{
 			DbContext = new TDbContext();
 		}

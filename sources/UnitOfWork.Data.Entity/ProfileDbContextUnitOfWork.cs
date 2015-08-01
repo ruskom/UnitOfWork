@@ -3,7 +3,7 @@ using UnitOfWork.Domain;
 
 namespace UnitOfWork.Data.Entity
 {
-	public class ProfileUnitOfWork : UnitOfWork<ProfileDbContext>, IProfileUnitOfWork
+	public class ProfileDbContextUnitOfWork : DbContextUnitOfWork<ProfileDbContext>, IProfileUnitOfWork
 	{
 		public IProfileRepository Profiles
 		{

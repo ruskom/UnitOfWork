@@ -6,6 +6,7 @@ using UnitOfWork.Domain;
 
 namespace UnitOfWork.Data.Entity
 {
+	// TODo: repository for non-entities
 	public abstract class EntityRepository<TEntity, TId> : IEntityRepository<TEntity, TId> where TEntity : class, IEntity<TId>
 	{
 		protected IDbSet<TEntity> Values { get; set; }
@@ -20,27 +21,27 @@ namespace UnitOfWork.Data.Entity
 			Values = values;
 		}
 
-		public abstract Task<TEntity> GetByIdAsync(TId id);
+		public virtual Task<TEntity> GetByIdAsync(TId id)
+		{
+
+		}
 
 		public TEntity Insert(TEntity value)
 		{
 			value.CreatedAt = DateTime.Now;
-			value.ModifiedAt = value.CreatedAt;
-			Values.Add(value);
-			return value;
+			value.LastUpdateAt = value.CreatedAt;
+			return Values.Add(value);
 		}
 
 		public TEntity Update(TEntity value)
 		{
-			value.ModifiedAt = DateTime.Now;
+			value.LastUpdateAt = DateTime.Now;
 			return value;
 		}
 
 		public TEntity Delete(TEntity value)
 		{
-			value.ModifiedAt = DateTime.Now;
-			Values.Remove(value);
-			return value;
+			return Values.Remove(value);
 		}
 	}
 }
