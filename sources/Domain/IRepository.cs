@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 
 namespace UnitOfWork.Domain
 {
-	// TODO: to data.core?
 	public interface IRepository<TEntity, in TId> where TEntity : Entity<TId>
 	{
 		Task<TEntity> GetByIdAsync(TId id);
