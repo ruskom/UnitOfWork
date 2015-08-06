@@ -2,10 +2,10 @@
 
 namespace UnitOfWork.Domain
 {
-	public abstract class Entity<TId> : IEntity<TId>
+	public abstract class Entity<TId> : IHasChangeTimestamps
 	{
 		public TId Id { get; set; }
 		public DateTime CreatedAt { get; set; }
-		public DateTime LastUpdateAt { get; set; }
+		public DateTime LastUpdatedAt { get; set; }
 	}
 }

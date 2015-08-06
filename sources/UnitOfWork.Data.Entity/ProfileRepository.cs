@@ -6,25 +6,20 @@ using UnitOfWork.Domain;
 
 namespace UnitOfWork.Data.Entity
 {
-	public class ProfileRepository : EntityRepository<Profile, int>, IProfileRepository
-	{
-		public ProfileRepository(IDbSet<Profile> values) : base(values)
-		{
-		}
+    public class ProfileRepository : Repository<Profile, int>, IProfileRepository
+    {
+        public ProfileRepository(IDbSet<Profile> items) : base(items)
+        {
+        }
 
-		public override Task<Profile> GetByIdAsync(int id)
-		{
-			return Values.FirstOrDefaultAsync(value => value.Id == id);
-		}
+        public override Task<Profile> GetByIdAsync(int id) => Items.FirstOrDefaultAsync(value => value.Id == id);
 
-		public Task<Profile> GetByNameAsync(string name)
-		{
-			return Values.FirstOrDefaultAsync(value => value.Name == name);
-		}
+        public Task<Profile> GetByNameAsync(string name) => Items.FirstOrDefaultAsync(value => value.Name == name);
 
-		public Task<List<Profile>> GetAllAsync()
-		{
-			return Values.ToListAsync();
-		}
-	}
+        public async Task<IEnumerable<Profile>> GetAllAsync()
+        {
+            var result = await Items.ToListAsync();
+            return result;
+        }
+    }
 }

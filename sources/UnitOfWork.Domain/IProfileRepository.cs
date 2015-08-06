@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace UnitOfWork.Domain
 {
-	public interface IProfileRepository : IEntityRepository<Profile, int>
+	public interface IProfileRepository : IRepository<Profile, int>
 	{
 		Task<Profile> GetByNameAsync(string name);
-		Task<List<Profile>> GetAllAsync();
+		Task<IEnumerable<Profile>> GetAllAsync();
 	}
 }

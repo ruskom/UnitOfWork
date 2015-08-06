@@ -8,22 +8,22 @@ using UnitOfWork.Domain;
 
 namespace UnitOfWork.Api.Web.Controllers
 {
-	[RoutePrefix("api/profiles")]
-	public class ProfilesController : ApiController
+	[RoutePrefix("profiles")]
+	public class ProfileController : ApiController
 	{
-		private IUnitOfWorkFactory<IProfileUnitOfWork> UnitOfWorkFactory { get; set; }
+		private IUnitOfWorkFactory<IProfileUnitOfWork> UnitOfWorkFactory { get; }
 
-		public ProfilesController()
+		public ProfileController()
 		{
-			UnitOfWorkFactory = new ProfileUnitOfWorkFactory();
+		    UnitOfWorkFactory = new ProfileUnitOfWorkFactory(new DefaultDbContextFactory<ProfileDbContext>());
 		}
 
 		[Route("")]
 		public async Task<IHttpActionResult> GetAllAsync()
 		{
-			using (var unitOfWOrk = UnitOfWorkFactory.Create())
+			using (var unitOfWork = UnitOfWorkFactory.Create())
 			{
-				var profiles = await unitOfWOrk.Profiles.GetAllAsync();
+				var profiles = await unitOfWork.Profiles.GetAllAsync();
 				return Ok(profiles);
 			}
 		}
@@ -31,9 +31,9 @@ namespace UnitOfWork.Api.Web.Controllers
 		[Route("{id:int}")]
 		public async Task<IHttpActionResult> GetByIdAsync(int id)
 		{
-			using (var unitOfWOrk = UnitOfWorkFactory.Create())
+			using (var unitOfWork = UnitOfWorkFactory.Create())
 			{
-				var profile = await unitOfWOrk.Profiles.GetByIdAsync(id);
+				var profile = await unitOfWork.Profiles.GetByIdAsync(id);
 				if (profile == null)
 				{
 					return NotFound();
